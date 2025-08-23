@@ -1,13 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-/**
- * InvestWest — Pure React + CSS
- * Added Sections:
- *  - Student Eligibility
- *  - Contact Us
- */
-
 // -----------------------------
 // Utilities
 // -----------------------------
@@ -25,7 +18,7 @@ const ExternalLink = ({ href, children }) => (
 );
 
 // -----------------------------
-// Navbar
+// Navbar (kept exactly as you requested)
 // -----------------------------
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -82,7 +75,7 @@ function Navbar() {
 }
 
 // -----------------------------
-// Hero
+// Hero (unchanged)
 // -----------------------------
 function Hero() {
   return (
@@ -116,7 +109,7 @@ function Hero() {
 }
 
 // -----------------------------
-// Section wrappers
+// Section wrapper (unchanged)
 // -----------------------------
 const Section = ({ id, title, children, tone = "default" }) => (
   <section
@@ -242,49 +235,58 @@ function Eligibility() {
   return (
     <Section id="eligibility" title="Student Eligibility">
       <p>
-        The InvestWest Competition is open to all <strong>high school students in the United States</strong>. 
-        Whether you are new to investing or already exploring the stock market, you are welcome 
+        The InvestWest Competition is open to all <strong>high school students in the United States</strong>.
+        Whether you are new to investing or already exploring the stock market, you are welcome
         to participate and gain valuable real-world experience in a supportive and educational environment.
       </p>
     </Section>
   );
 }
 
+// -----------------------------
+// Enhanced Registration
+// -----------------------------
 function Registration() {
-  const handleClick = () =>
+  const handleHTMW = () =>
     window.open("https://app.howthemarketworks.com/register/343878", "_blank");
+
+  const handleGoogleForm = () =>
+    window.open(
+      "https://docs.google.com/forms/d/e/1FAIpQLSfHwX6r2kgORMj8v_oUI4khJ-JMN6QuMfgs2zjoEb8wcUlaxw/viewform?usp=header",
+      "_blank"
+    );
 
   return (
     <Section id="registration" title="Registration">
       <p>
-        Click the button below to join the HTMW competition. When prompted, enter the password{" "}
+        Step 1: Click the button below to join the HTMW competition. When prompted, enter the password{" "}
         <strong>West100</strong>.
       </p>
       <div className="cta">
-        <button className="btn btn--primary btn--lg" onClick={handleClick}>
+        <button className="btn btn--primary btn--lg" onClick={handleHTMW}>
           Register on HTMW
         </button>
         <p className="muted">
-          If the link does not open, you can copy this URL and paste into your browser:{" "}
+          If the link does not open, copy this URL into your browser:{" "}
           <code>https://app.howthemarketworks.com/register/343878</code>
         </p>
       </div>
 
-      {/* --- NEW REQUIREMENT SECTION --- */}
+      <p>
+        Step 2: After registering on HTMW, fill out the Google Form below. You will need your HTMW username, school, grade, and email to complete it. This step is required to be officially entered.
+      </p>
       <div className="important">
-        <h3 className="section__subtitle">Required Google Form</h3>
-        <p>
-          All students who participate must also complete{" "}
-          <ExternalLink href="https://docs.google.com/forms/d/e/1FAIpQLSfHwX6r2kgORMj8v_oUI4khJ-JMN6QuMfgs2zjoEb8wcUlaxw/viewform?usp=header">
-            this Google Form
-          </ExternalLink>{" "}
-          before the competition start date. This step is required in order to be officially entered.
-        </p>
+        <button className="btn btn--primary" onClick={handleGoogleForm}>
+          Fill Out Google Form
+        </button>
       </div>
     </Section>
   );
 }
 
+// -----------------------------
+// Dates (unchanged)
+// -----------------------------
 function Dates() {
   const timeline = [
     { label: "Registration opens", date: "Wednesday, August 20" },
@@ -316,7 +318,7 @@ function Dates() {
 }
 
 // -----------------------------
-// FAQ (Accordion)
+// Enhanced FAQ
 // -----------------------------
 function FAQItem({ q, a, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -362,24 +364,28 @@ function FAQ() {
 }
 
 // -----------------------------
-// Contact
+// Enhanced Contact
 // -----------------------------
 function Contact() {
   return (
     <Section id="contact" title="Contact Us" tone="alt">
-      <p>
-        Have questions about the competition? Feel free to reach out directly:
-      </p>
-      <ul>
-        <li><strong>Phone:</strong> 914-374-2069</li>
-        <li><strong>Email:</strong> <a href="mailto:marcushane@icloud.com">marcushane@icloud.com</a></li>
-      </ul>
+      <p>Have questions about the competition? Reach out directly:</p>
+      <div className="contact-grid">
+        <div className="contact-card">
+          <strong>Phone:</strong>
+          <p>914-374-2069</p>
+        </div>
+        <div className="contact-card">
+          <strong>Email:</strong>
+          <p><a href="mailto:marcushane@icloud.com">marcushane@icloud.com</a></p>
+        </div>
+      </div>
     </Section>
   );
 }
 
 // -----------------------------
-// Footer
+// Footer (unchanged)
 // -----------------------------
 function Footer() {
   return (
@@ -393,7 +399,7 @@ function Footer() {
 }
 
 // -----------------------------
-// Back To Top
+// Back To Top (unchanged)
 // -----------------------------
 function BackToTop() {
   const [show, setShow] = useState(false);
