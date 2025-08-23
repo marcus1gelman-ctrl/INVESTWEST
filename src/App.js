@@ -3,19 +3,9 @@ import "./App.css";
 
 /**
  * InvestWest — Pure React + CSS
- * No external libraries required.
- * Sections:
- *  - Navbar (smooth scroll)
- *  - Hero
- *  - About
- *  - How It Works (with important constraints)
- *  - Prizes (cards)
- *  - Rules (detailed paragraphs)
- *  - Registration (CTA)
- *  - Important Dates (timeline)
- *  - FAQ (simple accordion)
- *  - Footer
- *  - BackToTop button
+ * Added Sections:
+ *  - Student Eligibility
+ *  - Contact Us
  */
 
 // -----------------------------
@@ -53,9 +43,11 @@ function Navbar() {
       { id: "how", label: "How It Works" },
       { id: "prizes", label: "Prizes" },
       { id: "rules", label: "Rules" },
+      { id: "eligibility", label: "Eligibility" },
       { id: "registration", label: "Registration" },
       { id: "dates", label: "Dates" },
       { id: "faq", label: "FAQ" },
+      { id: "contact", label: "Contact" },
     ],
     []
   );
@@ -107,7 +99,10 @@ function Hero() {
           .
         </p>
         <div className="hero__actions">
-          <button className="btn btn--primary" onClick={() => scrollToId("registration")}>
+          <button
+            className="btn btn--primary"
+            onClick={() => scrollToId("registration")}
+          >
             Register Now
           </button>
           <button className="btn" onClick={() => scrollToId("how")}>
@@ -124,7 +119,11 @@ function Hero() {
 // Section wrappers
 // -----------------------------
 const Section = ({ id, title, children, tone = "default" }) => (
-  <section id={id} className={`section section--${tone}`} aria-labelledby={`${id}-title`}>
+  <section
+    id={id}
+    className={`section section--${tone}`}
+    aria-labelledby={`${id}-title`}
+  >
     <div className="container">
       <h2 id={`${id}-title`} className="section__title">
         {title}
@@ -239,6 +238,18 @@ function Rules() {
   );
 }
 
+function Eligibility() {
+  return (
+    <Section id="eligibility" title="Student Eligibility">
+      <p>
+        The InvestWest Competition is open to all <strong>high school students in the United States</strong>. 
+        Whether you are new to investing or already exploring the stock market, you are welcome 
+        to participate and gain valuable real-world experience in a supportive and educational environment.
+      </p>
+    </Section>
+  );
+}
+
 function Registration() {
   const handleClick = () =>
     window.open("https://app.howthemarketworks.com/register/343878", "_blank");
@@ -256,6 +267,18 @@ function Registration() {
         <p className="muted">
           If the link does not open, you can copy this URL and paste into your browser:{" "}
           <code>https://app.howthemarketworks.com/register/343878</code>
+        </p>
+      </div>
+
+      {/* --- NEW REQUIREMENT SECTION --- */}
+      <div className="important">
+        <h3 className="section__subtitle">Required Google Form</h3>
+        <p>
+          All students who participate must also complete{" "}
+          <ExternalLink href="https://docs.google.com/forms/d/e/1FAIpQLSfHwX6r2kgORMj8v_oUI4khJ-JMN6QuMfgs2zjoEb8wcUlaxw/viewform?usp=header">
+            this Google Form
+          </ExternalLink>{" "}
+          before the competition start date. This step is required in order to be officially entered.
         </p>
       </div>
     </Section>
@@ -339,6 +362,23 @@ function FAQ() {
 }
 
 // -----------------------------
+// Contact
+// -----------------------------
+function Contact() {
+  return (
+    <Section id="contact" title="Contact Us" tone="alt">
+      <p>
+        Have questions about the competition? Feel free to reach out directly:
+      </p>
+      <ul>
+        <li><strong>Phone:</strong> 914-374-2069</li>
+        <li><strong>Email:</strong> <a href="mailto:marcushane@icloud.com">marcushane@icloud.com</a></li>
+      </ul>
+    </Section>
+  );
+}
+
+// -----------------------------
 // Footer
 // -----------------------------
 function Footer() {
@@ -392,9 +432,11 @@ export default function App() {
         <HowItWorks />
         <Prizes />
         <Rules />
+        <Eligibility />
         <Registration />
         <Dates />
         <FAQ />
+        <Contact />
       </main>
       <Footer />
       <BackToTop />
