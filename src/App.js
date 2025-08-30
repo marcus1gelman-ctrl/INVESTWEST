@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // -----------------------------
@@ -7,7 +7,7 @@ import "./App.css";
 const scrollToId = (id) => {
   const el = document.getElementById(id);
   if (!el) return;
-  const y = el.getBoundingClientRect().top + window.pageYOffset - 72; // account for sticky nav
+  const y = el.getBoundingClientRect().top + window.pageYOffset - 72; // sticky nav offset
   window.scrollTo({ top: y, behavior: "smooth" });
 };
 
@@ -18,7 +18,7 @@ const ExternalLink = ({ href, children }) => (
 );
 
 // -----------------------------
-// Navbar (kept exactly as you requested)
+// Navbar
 // -----------------------------
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,20 +30,17 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const items = useMemo(
-    () => [
-      { id: "about", label: "About" },
-      { id: "how", label: "How It Works" },
-      { id: "prizes", label: "Prizes" },
-      { id: "rules", label: "Rules" },
-      { id: "eligibility", label: "Eligibility" },
-      { id: "registration", label: "Registration" },
-      { id: "dates", label: "Dates" },
-      { id: "faq", label: "FAQ" },
-      { id: "contact", label: "Contact" },
-    ],
-    []
-  );
+  const NAV_ITEMS = [
+    { id: "about", label: "About" },
+    { id: "how", label: "How It Works" },
+    { id: "prizes", label: "Prizes" },
+    { id: "rules", label: "Rules" },
+    { id: "eligibility", label: "Eligibility" },
+    { id: "registration", label: "Registration" },
+    { id: "dates", label: "Dates" },
+    { id: "faq", label: "FAQ" },
+    { id: "contact", label: "Contact" },
+  ];
 
   return (
     <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
@@ -57,7 +54,7 @@ function Navbar() {
         </button>
 
         <ul className="nav__list" role="menubar" aria-label="Site sections">
-          {items.map((it) => (
+          {NAV_ITEMS.map((it) => (
             <li key={it.id} role="none">
               <button
                 className="nav__link"
@@ -75,7 +72,7 @@ function Navbar() {
 }
 
 // -----------------------------
-// Hero (unchanged)
+// Hero
 // -----------------------------
 function Hero() {
   return (
@@ -109,7 +106,7 @@ function Hero() {
 }
 
 // -----------------------------
-// Section wrapper (unchanged)
+// Section wrapper
 // -----------------------------
 const Section = ({ id, title, children, tone = "default" }) => (
   <section
@@ -158,25 +155,6 @@ function HowItWorks() {
         Participants can invest in publicly traded companies and experience market dynamics
         in real time — without financial risk.
       </p>
-      <div className="grid grid--2">
-        <div className="card">
-          <h3 className="card__title">Key Constraints</h3>
-          <ul className="checklist">
-            <li>No stock purchases under $5</li>
-            <li>Maximum 25% of portfolio in any single stock</li>
-            <li>No options, commodities, or short selling</li>
-            <li>One account per student</li>
-          </ul>
-        </div>
-        <div className="card">
-          <h3 className="card__title">Why These Rules?</h3>
-          <p>
-            The rules emphasize diversification and discourage speculative behavior. They
-            help students learn disciplined portfolio construction, risk management, and
-            long-term thinking — skills that translate to responsible investing habits.
-          </p>
-        </div>
-      </div>
     </Section>
   );
 }
@@ -187,26 +165,6 @@ function Prizes() {
       <p>
         To recognize achievement, InvestWest offers a prize pool of <strong>$1,000</strong>.
         Prizes are awarded to the top three competitors by final portfolio value.
-      </p>
-      <div className="grid grid--3">
-        <div className="prize">
-          <div className="prize__icon" aria-hidden="true">🥇</div>
-          <h3 className="prize__title">First Place</h3>
-          <p className="prize__amount">$500</p>
-        </div>
-        <div className="prize">
-          <div className="prize__icon" aria-hidden="true">🥈</div>
-          <h3 className="prize__title">Second Place</h3>
-          <p className="prize__amount">$300</p>
-        </div>
-        <div className="prize">
-          <div className="prize__icon" aria-hidden="true">🥉</div>
-          <h3 className="prize__title">Third Place</h3>
-          <p className="prize__amount">$200</p>
-        </div>
-      </div>
-      <p className="muted">
-        In the event of a tie, additional judging criteria may be used to determine placement.
       </p>
     </Section>
   );
@@ -219,13 +177,8 @@ function Rules() {
         To ensure fairness and encourage smart investing, participants may not purchase
         stocks priced under $5 or allocate more than <strong>25%</strong> of their portfolio
         to a single stock. Trading follows the schedule of the New York Stock Exchange, with
-        market hours from Monday to Friday, 9:30 AM to 4:00 PM EST. In addition, certain
-        strategies such as trading options, commodities, and short selling are prohibited.
-      </p>
-      <p>
-        Students are limited to one account each. Any attempts to register multiple accounts
-        will result in removal of all accounts. Please trade responsibly and respect the spirit
-        of the competition.
+        market hours from Monday to Friday, 9:30 AM to 4:00 PM EST. Options, commodities,
+        and short selling are prohibited.
       </p>
     </Section>
   );
@@ -236,15 +189,13 @@ function Eligibility() {
     <Section id="eligibility" title="Student Eligibility">
       <p>
         The InvestWest Competition is open to all <strong>high school students in the United States</strong>.
-        Whether you are new to investing or already exploring the stock market, you are welcome
-        to participate and gain valuable real-world experience in a supportive and educational environment.
       </p>
     </Section>
   );
 }
 
 // -----------------------------
-// Enhanced Registration
+// Registration (updated with screenshot instructions)
 // -----------------------------
 function Registration() {
   const handleHTMW = () =>
@@ -272,6 +223,18 @@ function Registration() {
         </p>
       </div>
 
+      <div className="important">
+        <p>
+          If the above link gives you trouble, you can first register a normal HTMW account, then
+          locate the <strong>Find New Contest</strong> button. Type in <strong>"The InvestWest Competition"</strong> and click <strong>Join</strong> to enter. See the screenshot below for reference.
+        </p>
+        <img
+          src="/screenshot.png"
+          alt="How to find and join the InvestWest competition on HTMW"
+          style={{ width: "100%", borderRadius: "12px", marginTop: "1rem" }}
+        />
+      </div>
+
       <p>
         Step 2: After registering on HTMW, fill out the Google Form below. You will need your HTMW username, school, grade, and email to complete it. This step is required to be officially entered.
       </p>
@@ -285,7 +248,7 @@ function Registration() {
 }
 
 // -----------------------------
-// Dates (unchanged)
+// Dates
 // -----------------------------
 function Dates() {
   const timeline = [
@@ -309,16 +272,12 @@ function Dates() {
           </li>
         ))}
       </ol>
-      <p className="muted">
-        Once entered, you’ll be added to the competition and can start managing your virtual
-        portfolio on the start date: <strong>12/02/25</strong>.
-      </p>
     </Section>
   );
 }
 
 // -----------------------------
-// Enhanced FAQ
+// FAQ
 // -----------------------------
 function FAQItem({ q, a, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -364,7 +323,7 @@ function FAQ() {
 }
 
 // -----------------------------
-// Enhanced Contact
+// Contact
 // -----------------------------
 function Contact() {
   return (
@@ -385,7 +344,7 @@ function Contact() {
 }
 
 // -----------------------------
-// Footer (unchanged)
+// Footer
 // -----------------------------
 function Footer() {
   return (
@@ -399,7 +358,7 @@ function Footer() {
 }
 
 // -----------------------------
-// Back To Top (unchanged)
+// Back To Top
 // -----------------------------
 function BackToTop() {
   const [show, setShow] = useState(false);
@@ -430,22 +389,21 @@ function BackToTop() {
 // -----------------------------
 export default function App() {
   return (
-    <>
+    <div className="App">
       <Navbar />
       <Hero />
-      <main>
-        <About />
-        <HowItWorks />
-        <Prizes />
-        <Rules />
-        <Eligibility />
-        <Registration />
-        <Dates />
-        <FAQ />
-        <Contact />
-      </main>
+      <About />
+      <HowItWorks />
+      <Prizes />
+      <Rules />
+      <Eligibility />
+      <Registration />
+      <Dates />
+      <FAQ />
+      <Contact />
       <Footer />
       <BackToTop />
-    </>
+    </div>
   );
 }
+
